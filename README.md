@@ -23,6 +23,10 @@ This will execute a bulk SQL transaction against your database and will:
  - Install `pgcrypto` for hashing passwords
  - Drop in the schema, tables, functions etc needed for this crazy
 
+## Development
+
+If you want to play around, the test db is called `pg_auth` and I build it on the fly. You can see all the scripts in the `build/src` directory - these get built and dropped into `build/dist`. If all you want is to check stuff out just install as above and have a good time.
+
 ## This is Supposed To Be Fun
 
 I like seeing what Postgres can do, and I'm not the world's best programmer so if you see some things that are interesting, have some fun.
