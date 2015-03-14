@@ -4,3 +4,4 @@ play.js
 *.swp
 *.swo
 .idea/
+npm-debug.log
