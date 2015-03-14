@@ -9,6 +9,9 @@ var indexDir = srcDir + "indexes/"
 var functionDir = srcDir + "functions/"
 var distFile = __dirname + "/build/dist/pg_auth.sql";
 
+var DB = "pg_auth";
+
+
 var functionSql = function(){
   var sqlFiles = [];
   var files = fs.readdirSync(functionDir);
@@ -67,10 +70,15 @@ exports.build = function(){
   fs.writeFileSync(distFile,sql);
  
   return sql;
-}
+};
 
-// massive.connect({db : "pg_auth"}, function(err,db){
-//   //console.log(db.membership)
-//   //db.membership.get_mailers();
-// });
+exports.install = function(){
+  var self = this;
+  massive.connect({db : DB}, function(err,db){
+    var sql = self.build();
+    db.run(sql);
+  });
+};
 
+
+this.install();
