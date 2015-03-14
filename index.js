@@ -41,7 +41,7 @@ var tableSql = function(){
 };
 
 
-var build = function(){
+exports.build = function(){
   var buildScript = [];
 
   buildScript.push("-- built on " + new Date());
@@ -65,17 +65,12 @@ var build = function(){
   var sql = buildScript.join("\r\n\r\n");
   //write it out
   fs.writeFileSync(distFile,sql);
-  console.log("SQL File built and placed in " + distFile);
-
+ 
   return sql;
 }
 
+// massive.connect({db : "pg_auth"}, function(err,db){
+//   //console.log(db.membership)
+//   //db.membership.get_mailers();
+// });
 
-massive.connect({db : "pg_auth"}, function(err,db){
-  var sql = build();
-
-  db.run(sql, [], function(err,res){
-    console.log(err);
-    console.log(res);
-  });
-});

@@ -38,7 +38,7 @@ BEGIN
     ELSE
         select true into success;
         --encrypt password
-        SELECT crypt(pass, gen_salt('bf', 10)) into hashedpw;
+        SELECT membership.crypt(pass, membership.gen_salt('bf', 10)) into hashedpw;
         select membership.random_value(36) into validation_token;
 
         insert into membership.members(email, created_at, membership_status_id,email_validation_token)

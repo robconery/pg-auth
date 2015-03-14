@@ -1,4 +1,4 @@
--- built on Sat Mar 14 2015 14:37:26 GMT+0100 (CET)
+-- built on Sat Mar 14 2015 19:15:29 GMT+0100 (CET)
 
 BEGIN;
 
@@ -30,7 +30,7 @@ DECLARE
   now_millis bigint;
   shard_id int := 1;
   BEGIN
-    SELECT nextval('membership_id_seq')%1024 INTO seq_id;
+    SELECT nextval('membership.membership_id_seq')%1024 INTO seq_id;
 
     SELECT FLOOR(EXTRACT(EPOCH FROM clock_timestamp()) * 1000) INTO now_millis;
     result := (now_millis - our_epoch) << 23;
@@ -344,7 +344,7 @@ BEGIN
       -- find the user with a crypted password
       select membership.logins.member_id from membership.logins
       where membership.logins.provider_key=pkey
-      AND membership.logins.provider_token = crypt(ptoken,provider_token)
+      AND membership.logins.provider_token = membership.crypt(ptoken,provider_token)
       AND membership.logins.provider=prov into return_id;
     else
       -- find the user with a token
@@ -614,7 +614,7 @@ BEGIN
     ELSE
         select true into success;
         --encrypt password
-        SELECT crypt(pass, gen_salt('bf', 10)) into hashedpw;
+        SELECT membership.crypt(pass, membership.gen_salt('bf', 10)) into hashedpw;
         select membership.random_value(36) into validation_token;
 
         insert into membership.members(email, created_at, membership_status_id,email_validation_token)

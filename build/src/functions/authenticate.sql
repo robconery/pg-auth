@@ -34,7 +34,7 @@ BEGIN
       -- find the user with a crypted password
       select membership.logins.member_id from membership.logins
       where membership.logins.provider_key=pkey
-      AND membership.logins.provider_token = crypt(ptoken,provider_token)
+      AND membership.logins.provider_token = membership.crypt(ptoken,provider_token)
       AND membership.logins.provider=prov into return_id;
     else
       -- find the user with a token
