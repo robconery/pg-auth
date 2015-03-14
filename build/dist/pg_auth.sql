@@ -1,4 +1,4 @@
--- built on Sat Mar 14 2015 19:15:29 GMT+0100 (CET)
+-- built on Sat Mar 14 2015 19:25:05 GMT+0100 (CET)
 
 BEGIN;
 
@@ -581,22 +581,23 @@ create or replace function register(
 )
 
 returns TABLE (
-new_id bigint,
-message varchar(255),
-email varchar(255),
-success BOOLEAN,
-status int,
-email_validation_token varchar(36))  as
+    new_id bigint,
+    message varchar(255),
+    email varchar(255),
+    success BOOLEAN,
+    status int,
+    email_validation_token varchar(36))  
+as
 $$
 DECLARE
-new_id bigint;
-message varchar(255);
-hashedpw varchar(255);
-success BOOLEAN;
-return_email varchar(255);
-return_status int;
-validation_token varchar(36);
-verify_email boolean;
+    new_id bigint;
+    message varchar(255);
+    hashedpw varchar(255);
+    success BOOLEAN;
+    return_email varchar(255);
+    return_status int;
+    validation_token varchar(36);
+    verify_email boolean;
 
 BEGIN
     --default this to 'Not Approved'
@@ -645,6 +646,7 @@ BEGIN
           perform membership.change_status(return_email,10,'Activated member during registration');
         end if;
 
+        --TODO: Mailer
     end if;
 
     return query

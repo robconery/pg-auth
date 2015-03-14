@@ -96,6 +96,4 @@ describe("Authentication", function() {
       assert.ok(authResult.member_id);
     });
   });
-
-
 });
