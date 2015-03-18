@@ -1,4 +1,4 @@
--- built on Sat Mar 14 2015 19:32:30 GMT+0100 (CET)
+-- built on Wed Mar 18 2015 08:56:15 GMT+0100 (CET)
 
 BEGIN;
 
@@ -601,10 +601,7 @@ DECLARE
 
 BEGIN
     --default this to 'Not Approved'
-    select 30 into return_status;
-    select false into success;
-
-    select new_email into return_email;
+    select 30, false, new_email into return_status, success, return_email;
 
     if(pass <> confirm) THEN
         select 'Password and confirm do not match' into message;
