@@ -1,4 +1,4 @@
--- built on Wed Mar 18 2015 08:56:15 GMT+0100 (CET)
+-- built on Mon Jul 27 2015 20:24:30 GMT-0500 (CDT)
 
 BEGIN;
 
@@ -461,10 +461,7 @@ returns TABLE(
     member_id bigint,
     email varchar(255),
     first varchar(50),
-    last varchar(50),
-    last_signin_at timestamptz,
-    profile json,
-    status varchar(20))
+    last varchar(50))
 as
 $$
 DECLARE
@@ -487,13 +484,11 @@ begin
     select found_user.id,
     found_user.email,
     found_user.first,
-    found_user.last,
-    found_user.last_signin_at,
-    found_user.profile,
-    found_user.status;
+    found_user.last;
 
 end;
 $$ language plpgsql;
+
 
 create or replace function get_member(member_id bigint)
 returns setof member_summary
