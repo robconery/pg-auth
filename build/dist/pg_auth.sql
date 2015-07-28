@@ -1,4 +1,4 @@
--- built on Wed Mar 18 2015 08:56:15 GMT+0100 (CET)
+-- built on Mon Jul 27 2015 20:28:40 GMT-0500 (CDT)
 
 BEGIN;
 
@@ -432,13 +432,13 @@ BEGIN
   --first, verify that the old password is correct and also find the user
   select membership.logins.member_id from membership.logins
   where membership.logins.provider_key=member_email
-  AND membership.logins.provider_token = crypt(old_password,provider_token)
+  AND membership.logins.provider_token = membership.crypt(old_password,provider_token)
   AND membership.logins.provider='local' into found_id;
 
 
   if found_id IS NOT NULL THEN
     -- crypt the new one and save it
-    update membership.logins set provider_token = crypt(new_password, gen_salt('bf', 10))
+    update membership.logins set provider_token = membership.crypt(new_password, membership.gen_salt('bf', 10))
     where member_id = found_id AND provider='local';
 
     -- log the change
@@ -456,15 +456,13 @@ BEGIN
 END;
 $$ LANGUAGE PLPGSQL;
 
+
 create or replace function get_current_user(session_id bigint)
 returns TABLE(
     member_id bigint,
     email varchar(255),
     first varchar(50),
-    last varchar(50),
-    last_signin_at timestamptz,
-    profile json,
-    status varchar(20))
+    last varchar(50))
 as
 $$
 DECLARE
@@ -487,13 +485,11 @@ begin
     select found_user.id,
     found_user.email,
     found_user.first,
-    found_user.last,
-    found_user.last_signin_at,
-    found_user.profile,
-    found_user.status;
+    found_user.last;
 
 end;
 $$ language plpgsql;
+
 
 create or replace function get_member(member_id bigint)
 returns setof member_summary
