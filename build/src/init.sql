@@ -13,7 +13,7 @@ create or replace function random_value(len int, out result varchar(32))
   as
 $$
 BEGIN
-SELECT substring(md5(random()::text),0, len) into result;
+SELECT substr( encode(membership.gen_random_bytes(len /2 +1), 'hex'), 1, len ) into result;
 END
 $$ LANGUAGE plpgsql;
 
