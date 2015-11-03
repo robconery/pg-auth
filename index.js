@@ -76,6 +76,11 @@ exports.install = function(){
   var self = this;
   massive.connect({db : DB}, function(err,db){
     var sql = self.build();
+    if(!db || !db.run) {
+      console.log("Unable to connect to database '" + DB + "'.");
+      console.log("Check that it exists and/or adjust connection settings in index.js");
+      return;
+    }
     db.run(sql);
   });
 };
