@@ -1,22 +1,25 @@
 {
-  "name": "pg-auth",
-  "version": "1.0.0",
-  "description": "A complete membership system built in Postgres",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha ."
-  },
-  "keywords": [
-    "postgres",
-    "membership",
-    "authentication"
-  ],
-  "author": "Rob Conery",
-  "license": "ISC",
-  "dependencies": {
-    "async": "^0.9.0",
-    "gulp": "^3.8.11",
-    "massive": "^2.0.2",
-    "underscore": "^1.8.2"
-  }
+    "name": "pg-auth",
+    "version": "1.0.0",
+    "description": "A complete membership system built in Postgres",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index",
+        "test": "mocha test"
+    },
+    "keywords": [
+        "postgres",
+        "membership",
+        "authentication"
+    ],
+    "author": "Rob Conery",
+    "license": "ISC",
+    "dependencies": {
+        "async": "^0.9.0",
+        "massive": "^2.0.2",
+        "underscore": "^1.8.2"
+    },
+    "devDependencies": {
+        "mocha": "^2.5.3"
+    }
 }
